@@ -1,0 +1,265 @@
+
+@mixin flexContainer($direc,$alignX,$alignY){
+   display: flex;
+   flex-direction:$direc;
+   justify-content:$alignX;
+   align-items:$alignY;
+}
+@mixin buttonsBlock($width,$height,$color){
+  width:$width;
+  height:$height;
+  background-color: $color;
+  border-radius: 50%;
+  z-index: 300;
+  cursor: pointer;
+  font-size: 30px;
+}
+
+$content_color:#fafafa; 
+$line_color:#e1dfdf;
+
+#root{
+  margin:0;
+  padding:0;
+  background-color:white;
+  text-align: center;
+  font-size: 14px;
+  .main {
+    .popup-background{
+      position: fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height: 100%;
+      background-color: black;
+      opacity: 0.6;
+      z-index: 100;
+    }
+    .popup-container{
+      @include flexContainer(row,space-between,center);
+      @media screen and (max-width:600px){
+        flex-direction:column;
+      }
+      position:fixed;
+      top:200px;
+      left:50%;
+      margin-left:-45%;
+      width:90%;
+      height: 500px;
+      background-color: white;
+      z-index: 200;
+      .img-p-block{
+        @include flexContainer(row,center,center);
+        width:70%;
+        height: 95%;
+        overflow: hidden;
+        & img{
+          box-sizing: content-box;
+          width:100%;
+        }
+      }
+      .img-discription-block{
+        @include flexContainer(column,flex-start,center);
+        width:30%;
+        min-width: 165px;
+        height: 100%;
+        background-color: $content_color;
+        padding:0 10px;
+        .img-d-header{
+          padding-top:20px; 
+          @include flexContainer(row,center,center);
+          font-size: 1.2em;
+          & img{
+            width:48px;
+          }
+        }
+        .line{
+          width:90%;
+          margin-top: 20px;
+          border-top:1px solid $line_color;
+        }
+      }
+      .close-button{
+        position:absolute;
+        top:-80px;
+        left:100%;
+        margin-left:-50px; 
+        @include buttonsBlock(50px,50px,rgba(50,50,50,0.7));
+        & span{
+          font-size: 30px;
+          color:white;
+        }
+      }
+      .next-btn{
+        position: absolute;
+        top:calc(50% - 25px);
+        left:10px;
+        @include buttonsBlock(50px,50px,rgba(200,200,200,0.7));
+        @include flexContainer(row,center,center);
+        & .arrow-left{
+          width:20px;
+          height:20px;
+          border-top:5px solid black;
+          border-left:5px solid black;
+          transform:rotate(-45deg);
+
+        }
+      }
+      .prev-btn{
+        position: absolute;
+        top:calc(50% - 25px);
+        right:10px;
+        @include buttonsBlock(50px,50px,rgba(200,200,200,0.7));
+        @include flexContainer(row,center,center);
+        & .arrow-right{
+          width:20px;
+          height:20px;
+          border-top:5px solid black;
+          border-right:5px solid black;
+          transform:rotate(45deg);
+
+        }
+      }
+    }
+    .header-block{
+      @include flexContainer(row,center,center);
+      @media screen and (max-width:450px){
+        flex-direction:column;
+      }
+      // padding:10px;
+      .icons-block, .search-block, .image-block{
+        width:33%;
+        height: 77px;
+      }
+      .image-block{
+        @include flexContainer(row,center,center);
+        .inst-icon{
+
+          margin-right:10px;
+          padding-right:10px;
+          border-right:1px solid black;
+          & img{
+            width: 24px;
+          }
+        }
+        .inst-logo{
+          position: relative;
+          display: flex;
+          top: 3px;
+          min-width: 50px;
+        }
+      }
+      .search-block{
+        @include flexContainer(row,center,center);
+        & input{
+          max-width: 215px;
+          font-size: 0.8em;
+          height: 27px;
+        }
+      }
+      .icons-block{
+        position:relative;
+        @include flexContainer(row,center,center);
+        & img{
+          width:24px;
+          min-width: 16px;
+          margin: 0 15px;
+        }
+        &:after{
+            content: '';
+            position: absolute;
+            bottom: 15px;
+            width:6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: red;
+        }
+      }
+    }
+
+    .main-section{
+      @include flexContainer(column,center,center);
+      width:95%;
+      margin:0 auto;
+      border-top: 2px solid #e3e3e3;
+      background-color:  $content_color;
+      .content-header{
+        //-----info header block
+        .info-header{
+          @include flexContainer(row,center,center);
+          @media screen and (max-width:600px){
+             flex-direction:column;
+          }
+          margin-top:58px;
+          margin-bottom: 44px;
+          .info-logo-ebs{
+            width:33%;
+            min-width: 153px;
+          }
+          .description{
+            width:66%;
+            padding:0 10px;
+            @include flexContainer(column,center,flex-start);
+            .first-line{
+              @include flexContainer(row,center,center);
+              .item{
+                margin-right: 40px;
+                // & span{
+                //   font-weight: bold;
+                // }
+              }
+            }
+            .second-line{
+              color:gray;
+              & b{
+                color:black;
+              }
+            }
+          }
+        }
+        //-----bookmarks block  
+        .bookmarks-block{
+          @include flexContainer(row,center,center);
+          height:40px;
+          border-top:1px solid #f0f0f0;
+          .posts, .tagged{
+            height:40px;
+            cursor: pointer;
+            margin-left:60px;
+            & p{
+              margin-top:10px;
+              img{
+                width:16px;
+              }
+            }
+          }
+          .active{
+            border-top:1px solid black;
+          }
+        }
+      }
+      & .bookmarks-block{
+        width:100%;
+      }
+      //-----main image block
+      .content-images{
+        @include flexContainer(row,center,center);
+        flex-wrap:wrap;
+        .photo-block{
+            display:flex;
+            width:30%;
+            height:25vw;
+            margin:10px;
+            box-sizing:border-box;
+            overflow: hidden;
+            background-color: black;
+           & img:hover{
+            
+            opacity: 0.6;
+          }
+        }
+       
+      }
+    }  
+  }
+}
