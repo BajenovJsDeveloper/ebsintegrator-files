@@ -26,13 +26,21 @@ function Main() {
   const [photos,setPhotos] = useState([]);
   const [popup,setPopup] = useState(false);
   const [curPhotoId,setCurPhotoId] = useState(null);
+  const [photoLen,setPhotoLen] = useState(photos.length);
 
   useEffect(()=>{
-    
+    //--- user data
     const Access_key='VUpdi2Xa2qT3WMtB_TvX0LpAVUSBzWPXG12cGyBH4MM';
     const url='https://api.unsplash.com/photos?page='+Page+'&per_page='+Per_page+'&client_id='+Access_key;
+    //--- get response from server with photo array
       Api.getPhotos(url).then(resp =>{
         setPhotos(resp);
+        setPhotoLen(resp.length);
+      },error => {
+    //--- on serever error seting default foto 
+        let photoArr = [[media.natureImg, media.natureImg, 'Junior', '4-06-2020','1']]
+        setPhotos(photoArr);
+        setPhotoLen(photoArr.length);
       })
   },[])
 
@@ -46,7 +54,7 @@ function Main() {
     setPopup(false);
   }
   const nextClick = () => {
-    if(curPhotoId < Per_page-1) setCurPhotoId(Number(curPhotoId)+1);
+    if(curPhotoId < photoLen-1) setCurPhotoId(Number(curPhotoId)+1);
   }
   const prevClick = () =>{
     if(curPhotoId > 0) setCurPhotoId(Number(curPhotoId)-1);
@@ -54,6 +62,7 @@ function Main() {
 
   return (
     <div className='main'>
+      {/*   Popup window when on image click   */}
       { popup && <div className='popup-background'></div> }
       { popup && <PopupContainer photo={photos[curPhotoId][LARGE]} 
                                  closeClick={closePopupClick}
@@ -63,6 +72,7 @@ function Main() {
                                  likes={photos[curPhotoId][LIKES]}
                                  userName={photos[curPhotoId][USER_NAME]}/>
       }
+    {/* Header block  */}
       <header>
         <div className='header-block'>
           <div className='image-block'>
@@ -76,19 +86,21 @@ function Main() {
           <div className='search-block'>
             <input type='text' placeholder='search' className='form-control'/>
           </div>
-          <div className='icons-block 1'>
+          <div className='icons-block'>
             <img src={media.iconCompas} alt='iconCompas'/>
             <img src={media.iconHeart} id='heart' alt='iconHeart'/>
             <img src={media.iconUser} alt='iconUser'/>
           </div>
         </div> 
       </header>
+      {/*   Main content block   */}
       <section className='main-section'>
         <div className='container content-header'>
           <div className='info-header'>
             <div className='info-logo-ebs'>
               <img src={media.iconEBS} alt='iconEBS'/>
             </div>
+            {/*   Discriptoin block   */}
             <section className='description'>
               <h3>ebsintegrator</h3>
               <div className='first-line'>
@@ -115,9 +127,11 @@ function Main() {
               <p><img src={media.tagedSVG} alt='tagedSVG'/> tagged </p>
             </div>
           </div>
+          {/* Photo container block   */}
           <PhotosContainer photos={photos} photoClick={imageClick}/> 
         </div>  
       </section>
+      {/*   Footer block    */}
       <footer className='footer'></footer>
     </div>
   );

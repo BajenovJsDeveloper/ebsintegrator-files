@@ -6,12 +6,14 @@ import iconUser from './images/user-icon.png';
 import iconEBS from './images/logo-ebs.png';
 import postSVG from './images/post.svg';
 import tagedSVG from './images/taged.svg';
+import natureImg from './images/nature.jpg'
 
 
 const media={instagramImg, iconInstagram,
 			 iconCompas, iconHeart,
 			 iconUser, iconEBS,
-			 postSVG, tagedSVG
+			 postSVG, tagedSVG,
+			 natureImg
 };
 
 

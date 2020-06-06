@@ -1,4 +1,7 @@
-
+body{
+  margin:0;
+  padding:0;  
+}
 @mixin flexContainer($direc,$alignX,$alignY){
    display: flex;
    flex-direction:$direc;
@@ -41,21 +44,26 @@ $line_color:#e1dfdf;
         flex-direction:column;
       }
       position:fixed;
-      top:200px;
+      top:50%;
       left:50%;
       margin-left:-45%;
+      margin-top:-250px;
       width:90%;
       height: 500px;
       background-color: white;
       z-index: 200;
       .img-p-block{
         @include flexContainer(row,center,center);
+        @media screen and (max-width:600px){
+          margin-top:10px;
+        }
         width:70%;
         height: 95%;
         overflow: hidden;
         & img{
           box-sizing: content-box;
           width:100%;
+          padding:10px;
         }
       }
       .img-discription-block{
@@ -81,43 +89,45 @@ $line_color:#e1dfdf;
       }
       .close-button{
         position:absolute;
-        top:-80px;
+        top:-50px;
         left:100%;
-        margin-left:-50px; 
-        @include buttonsBlock(50px,50px,rgba(50,50,50,0.7));
+        margin-left:-30px; 
+        @include buttonsBlock(30px,30px,rgba(50,50,50,0.7));
+        @include flexContainer(row,center,center);
         & span{
-          font-size: 30px;
+          font-size: 15px;
           color:white;
         }
       }
       .next-btn{
         position: absolute;
         top:calc(50% - 25px);
-        left:10px;
-        @include buttonsBlock(50px,50px,rgba(200,200,200,0.7));
+        left:-25px;
+        @include buttonsBlock(50px,50px,rgba(230, 230, 230, 0.7));
         @include flexContainer(row,center,center);
         & .arrow-left{
           width:20px;
           height:20px;
-          border-top:5px solid black;
-          border-left:5px solid black;
+          border-top:5px solid #6f6e6e;
+          border-left:5px solid #6f6e6e;
           transform:rotate(-45deg);
+          border-radius: 4px;
 
         }
       }
       .prev-btn{
         position: absolute;
         top:calc(50% - 25px);
-        right:10px;
-        @include buttonsBlock(50px,50px,rgba(200,200,200,0.7));
+        right:-25px;
+        @include buttonsBlock(50px,50px,rgba(230, 230, 230, 0.7));
         @include flexContainer(row,center,center);
         & .arrow-right{
           width:20px;
           height:20px;
-          border-top:5px solid black;
-          border-right:5px solid black;
+          border-top:5px solid #6f6e6e;
+          border-right:5px solid #6f6e6e;
           transform:rotate(45deg);
-
+          border-radius: 4px;
         }
       }
     }
@@ -126,7 +136,6 @@ $line_color:#e1dfdf;
       @media screen and (max-width:450px){
         flex-direction:column;
       }
-      // padding:10px;
       .icons-block, .search-block, .image-block{
         width:33%;
         height: 77px;
@@ -204,9 +213,6 @@ $line_color:#e1dfdf;
               @include flexContainer(row,center,center);
               .item{
                 margin-right: 40px;
-                // & span{
-                //   font-weight: bold;
-                // }
               }
             }
             .second-line{
@@ -246,6 +252,9 @@ $line_color:#e1dfdf;
         @include flexContainer(row,center,center);
         flex-wrap:wrap;
         .photo-block{
+            @media screen and (max-width:770px){
+              margin:2px;
+            }
             display:flex;
             width:30%;
             height:25vw;
@@ -253,7 +262,10 @@ $line_color:#e1dfdf;
             box-sizing:border-box;
             overflow: hidden;
             background-color: black;
-           & img:hover{
+            & img{
+              width:100%;
+            }
+            & img:hover{
             
             opacity: 0.6;
           }
